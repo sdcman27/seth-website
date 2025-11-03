@@ -1,0 +1,21 @@
+:root {
+  --bg: #0b0c0f;
+  --card: #121317;
+  --muted: #a1a1aa;
+  --text: #e6e6e6;
+  --primary: #6ee7ff; /* calm cyan accent */
+  --ring: #2dd4bf;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #fafafa;
+    --card: #ffffff;
+    --muted: #52525b;
+    --text: #0a0a0a;
+    --primary: #0ea5e9;
+    --ring: #38bdf8;
+  }
+}
+
+html { color-scheme: dark light; }
