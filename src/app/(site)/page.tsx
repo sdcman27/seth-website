@@ -1,7 +1,7 @@
 import Section from "@/components/Section";
 import Badge from "@/components/Badge";
 import Card from "@/components/Card";
-import { profile, skills, projects, experience } from "@/data/resume";
+import { profile, skills, projects, experience, contact } from "@/data/resume";
 import ProjectCard from "@/components/ProjectCard";
 import TimelineItem from "@/components/TimelineItem";
 import Link from "next/link";
@@ -55,8 +55,8 @@ export default function Page() {
           <p className="text-sm">
             {profile.location}. {` `}
             Prefer email:{" "}
-            <a className="underline" href="mailto:you@example.com">
-              you@example.com
+            <a className="underline" href={`mailto:${contact.email}`}>
+              {contact.email}
             </a>
           </p>
         </Card>

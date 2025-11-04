@@ -21,70 +21,114 @@ export const profile: {
   links: Link[];
   keywords: string[];
 } = {
-  name: "Seth C.",
+  name: "Seth Chritzman",
   title: "Software Developer • Data Scientist",
   blurb:
-    "I build reliable, user-centric software with a focus on backend APIs, streaming, and data visualization.",
+    "Software leader building data-rich products for healthcare, live media, and education. Experienced guiding early-stage teams, translating research into production systems, and delivering polished user experiences across web and cloud platforms.",
   location: "Pittsburgh, PA • Open to Remote",
   links: [
     { label: "GitHub", href: "https://github.com/sdcman27" },
-    { label: "LinkedIn", href: "#" },
-    { label: "Email", href: "mailto:you@example.com" },
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/seth-chritzman-40b915251",
+    },
+    { label: "Email", href: "mailto:sethchritzman@gmail.com" },
   ],
-  keywords: ["Java","Spring","TypeScript","NestJS","Postgres","Redis","LiveKit","Cloudflare R2","Python"],
+  keywords: [
+    "Python",
+    "Java",
+    "TypeScript",
+    "NestJS",
+    "React",
+    "Next.js",
+    "Supabase",
+    "Flask",
+    "AWS",
+  ],
 };
 
 export const skills: string[] = [
-  "Java (Spring)", "TypeScript (NestJS)", "PostgreSQL / Drizzle",
-  "Redis", "Kafka (basics)", "Python", "React / Next.js", "Cloudflare R2", "Stripe"
+  "Java (Spring)",
+  "TypeScript / JavaScript",
+  "Python (NumPy, Pandas)",
+  "Next.js & React",
+  "NestJS & Supabase",
+  "PostgreSQL / MySQL",
+  "Flask & Django",
+  "AWS & Docker",
+  "TensorFlow / Keras",
 ];
 
 export const experience: Experience[] = [
   {
-    company: "BeLive",
-    role: "Backend / Platform Engineer",
-    period: "2024 — Present",
+    company: "3KG",
+    role: "Chief Technology Officer",
+    period: "May 2024 — Present",
     bullets: [
-      "Designed APIs for comments, likes, follows, and battles; consolidated image & video posts into a unified flow.",
-      "Integrated LiveKit & Agora for live streaming; built multi-stream invites and real-time notifications.",
-      "Refactored gifts/coins system with presigned uploads, Stripe flows, and Redis backed state.",
+      "Leading development of a patent-pending platform that converts SCP, DICOM, and printed ECG data into synchronized 2D/3D visualizations shared with cardiology teams.",
+      "Built cloud-hosted data pipelines with Flask, Plotly, OpenCV, and Python to deliver interactive diagnostics for each heart lead.",
+      "Partner with electrical engineers and clinicians to define product roadmap and deploy HIPAA-ready infrastructure.",
     ],
-    tech: ["NestJS","TypeScript","Postgres","Drizzle","Redis","LiveKit","Cloudflare R2"],
+    tech: ["Python", "Flask", "Plotly", "OpenCV", "AWS"],
   },
   {
-    company: "Freelance / OSS",
-    role: "Full-Stack Developer",
-    period: "2021 — 2024",
+    company: "Hype Live US",
+    role: "Vice President of Technology",
+    period: "Sep 2024 — Present",
     bullets: [
-      "Built a Google Places-powered ordering UI in React with geo-filtered autocomplete.",
-      "Created data viz tools for ECG/EKG analysis (2D/3D) using Python and Plotly.",
+      "Architecting REST and real-time services with TypeScript, NestJS, Supabase, and AWS for social streaming features such as comments, likes, follows, and battles.",
+      "Implemented real-time notifications and messaging via server-sent events (SSE) to support live interactions.",
+      "Coordinating engineering priorities across mobile, web, and infrastructure teams while mentoring junior developers.",
     ],
-    tech: ["React","Next.js","Python","Plotly"],
+    tech: ["TypeScript", "NestJS", "Supabase", "AWS", "SSE"],
   },
+  {
+    company: "Intertwined | Tutor",
+    role: "STEM Instructor",
+    period: "Dec 2023 — Present",
+    bullets: [
+      "Design personalized lesson plans aligned with student goals, learning styles, and state standards for grades 6–12.",
+      "Coordinate scheduling, grade tracking, and progress reporting in partnership with school administrators and parents.",
+      "Deliver one-on-one instruction that strengthens confidence in mathematics, computer science, and engineering topics.",
+    ],
+    tech: ["Python", "Java", "STEM Curriculum"],
+    },
+    {
+    company: "Slippery Rock University",
+    role: "Undergraduate Researcher",
+    period: "Dec 2022 — May 2023",
+    bullets: 
+    [
+      "Explored Zetta-scale computing research problems focused on scalable simulation of complex systems.",
+      "Prototyped Python and C++ tooling to analyze large datasets and visualize emergent behaviors for faculty advisors.",
+      "Documented findings and presented progress to the Computer Science department research cohort.",
+    ],
+    tech: ["Python", "C++", "Data Visualization", "Java"]
+    },
 ];
 
 export const projects: Project[] = [
   {
     name: "ECG 3D Visualizer",
-    description: "Web app that turns 12-lead ECG data into synchronized 2D/3D visualizations with upload pipeline.",
-    href: "#",
-    tech: ["Flask","Plotly","OpenCV"],
+    description:
+      "Built a collaborative trading simulator in Spring/Java that exposes REST APIs, real-time pricing logic, and portfolio analytics for education use cases.",
+    tech: ["Java", "Spring", "PostgreSQL"],
   },
   {
-    name: "BeLive Posts Service",
-    description: "Unified images/videos pipeline with presigned uploads and combined feed.",
-    href: "#",
-    tech: ["NestJS","Drizzle","Cloudflare R2"],
+    name: "Online Examination Management (X-calibur)",
+    description:
+      "Created an authentication-centric web platform using Java, JSP/CRUD services, and AI chatbots to streamline exam creation, proctoring, and review workflows.",
+    tech: ["Java", "JSP", "MySQL"],
   },
   {
-    name: "CurtsDirt",
-    description: "Simple order flow for a local topsoil business; modern React frontend.",
-    href: "#",
-    tech: ["React","Vite"],
+    name: "Tobacco Usage Detection Research",
+    description:
+      "Researched and engineered machine learning models in Python to classify tobacco usage patterns, surfacing predictive insights for public health stakeholders.",
+    tech: ["Python", "scikit-learn", "TensorFlow"],
   },
 ];
 
 export const contact = {
-  email: "you@example.com",
-  note: "Best reached by email. Open to contract or full-time roles.",
+  email: "sethchritzman@gmail.com",
+  note: "Feel free to reach out for CTO, data science, or backend engineering roles. Phone: +1 (724) 333-3684.",
 };
