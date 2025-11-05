@@ -22,7 +22,7 @@ export const profile: {
   keywords: string[];
 } = {
   name: "Seth Chritzman",
-  title: "Software Developer • Data Scientist",
+  title: "Software Developer",
   blurb:
     "Software leader building data-rich products for healthcare, live media, and education. Experienced guiding early-stage teams, translating research into production systems, and delivering polished user experiences across web and cloud platforms.",
   location: "Pittsburgh, PA • Open to Remote",
