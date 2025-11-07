@@ -8,6 +8,7 @@ const nav = [
   { href: "/experience", label: "Experience" },
   { href: "/projects", label: "Projects" },
   { href: "/contact", label: "Contact" },
+  { href: "games.sethchritzman.com", label: "Games" },
 ];
 
 export default function Header() {
