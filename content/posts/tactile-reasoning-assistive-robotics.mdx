@@ -1,0 +1,48 @@
+---
+title: "Tactile Reasoning in Assistive Robotics"
+date: "2024-11-12"
+summary: "How I translate tactile sensor data into safe, real-time assistance for daily living tasks."
+tags: ["research", "robotics", "human-centered-ai"]
+image: "/images/blog/tactile-reasoning.svg"
+---
+
+Designing a reliable assistive robot means more than bolting sensors onto a gripper. In this project I
+built a perception stack that transforms raw tactile signals into contextual awareness the robot can
+use during unstructured household tasks.
+
+## From forces to features
+
+I capture high-frequency shear and normal forces from a custom tactile array. A lightweight Rust
+process compresses and streams those values into my Next.js control surface where an on-device model
+performs feature extraction:
+
+```ts
+export function normalizeForceSample(sample: ForceSample) {
+  const shear = sample.shear.readings.map(value => value / 32);
+  const pressure = sample.pressure / 128;
+
+  return {
+    shear,
+    pressure,
+    timestamp: sample.timestamp,
+  };
+}
+```
+
+Normalizing the values like this gives the downstream planner a stable signal regardless of which
+attachment a participant prefers.
+
+## Guard rails for safety
+
+Every frame is labeled with a risk score and compared to the participant's personalized thresholds.
+If the score drifts, the system scales velocity, announces the issue through the UI, and requests a
+confirmation before the robot continues.
+
+> Research should feel human. The most rewarding feedback from our participants was that the robot
+> "understood when to pause"—exactly the behavior this tactile reasoning stack unlocks.
+
+## What I am shipping next
+
+The next iteration will merge proprioceptive data with tactile contact patches to improve pose
+estimation when occlusions make vision unreliable. That fusion layer is underway now, and I will
+share the results here soon.

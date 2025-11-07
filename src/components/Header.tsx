@@ -7,6 +7,7 @@ const nav = [
   { href: "/", label: "Home" },
   { href: "/experience", label: "Experience" },
   { href: "/projects", label: "Projects" },
+  { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
   { href: "https://games.sethchritzman.com", label: "Games" },
 ];
@@ -25,7 +26,10 @@ export default function Header() {
               <Link
                 href={n.href}
                 className={`px-3 py-1 rounded-md hover:bg-white/5 ${
-                  pathname === n.href ? "bg-white/10" : ""
+                  pathname === n.href ||
+                  (n.href !== "/" && pathname.startsWith(`${n.href}/`))
+                    ? "bg-white/10"
+                    : ""
                 }`}
               >
                 {n.label}
