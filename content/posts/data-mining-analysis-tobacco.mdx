@@ -1,0 +1,164 @@
+---
+title: "Data Mining and Analysis Techniques for the Halt of Tobacco Use"
+date: "2022-12-09"
+summary: "Exploring how data mining models classify tobacco use by analyzing biometric and demographic indicators."
+tags:
+  - data mining
+  - public health
+  - machine learning
+---
+
+**Authors:** Seth Chritzman & Hunter Minteer  
+**Department of Computer Science, Slippery Rock University**  
+**CPSC 423: Data Mining & Analysis**  
+**Professor:** Wahbeh Abdullah  
+**Date:** December 9, 2022  
+
+---
+
+## Introduction
+
+The use of tobacco in the United States remains one of the major causes of death and disease. It is responsible for almost **500,000 deaths annually**, and globally, **over eight million deaths** each year are linked to tobacco abuse. To identify and understand the problem behind tobacco usage, a combination of approaches must be used to comprehend the deeper patterns within the data.
+
+In this study, **data mining techniques** are applied to determine whether an individual is a smoker or non-smoker. This is particularly valuable in real-world scenarios: when medical professionals attempt to assess whether a patient uses tobacco, the number of variables can make it difficult to arrive at an accurate conclusion. Using **data mining and artificial intelligence (AI)**, we can improve the precision of such assessments dramatically.
+
+Data mining is the process of exploring large datasets to discover hidden patterns, trends, and relationships. Its two primary goals are **prediction** and **description**.  
+- **Description** focuses on patterns interpretable by humans.  
+- **Prediction** focuses on using attributes within the data to forecast other variables.
+
+**Artificial intelligence and machine learning** allow us to uncover relationships that are invisible to the human eye. By applying these methods, we can predict smoker status based on health indicators and demographic factors.
+
+Physiological and behavioral factors that may influence tobacco use include:
+- **Sociodemographic** attributes  
+- **Past quitting attempts**  
+- **Nicotine dependence level**  
+- **Use of supplementary nicotine products**  
+- **Gender differences**
+
+In addition to behavioral data, **biochemical indicators** can be valuable predictors. These include:
+- Alanine transaminase (ALT)  
+- Aspartate transaminase (AST)  
+- Gamma-glutamyl transpeptidase (GTP)  
+- Hemoglobin  
+- LDL and HDL cholesterol levels  
+
+The objective of this study is to use AI and data mining methods to identify whether a patient is a tobacco user by analyzing these various physical and biochemical attributes.
+
+---
+
+## Body of Literature Review
+
+### Study 1 — Predicting Quit Probability Using WEKA
+
+A study conducted in India focused on predicting the probability of a smoker successfully quitting. Tobacco use in India is a significant contributor to preventable deaths, as the country is the **second-largest tobacco consumer** globally. Researchers noted that cutting tobacco use in half could prevent over **180 million deaths**.
+
+To model smoking cessation, they used **data mining techniques** and the **WEKA tool** to test different algorithms:
+- **Naïve Bayes**
+- **SMO (Sequential Minimal Optimization)**
+- **Random Forest**
+- **J48 Decision Tree**
+- **Decision Stump**
+
+The dataset included **16 attributes**, such as age, gender, education, marital status, religion, occupation, number of dependents, tobacco type, frequency of use, years of habit, previous quit attempts, nicotine dependence, intervention type, and outcome.
+
+After running the models with **10-fold cross-validation**, the **Decision Stump** algorithm performed best with **55.87% accuracy**, followed by SMO and J48. Although the dataset was limited to 655 individuals from a single clinic, the study provided valuable insight into how decision trees could be used for tobacco cessation prediction.
+
+---
+
+### Study 2 — Investigating Tobacco Habits in Croatia
+
+Another study examined the relationship between cigarette versus rolling tobacco use in Croatia’s Slavonia region. The dataset came from an **online survey** of primarily **female participants aged 18–25**.
+
+The study aimed to determine whether **price influenced tobacco choice**, as rolling tobacco is cheaper. Results showed that:
+- **45.1% of young adults** were daily smokers  
+- **74.5% began smoking before age 18**  
+- **47.1% were heavily exposed to tobacco** before starting  
+- **39.2% wanted to quit**, and nearly half had attempted multiple times  
+
+Researchers applied a **J48 decision tree** algorithm using **10-fold cross-validation**, which effectively classified patterns in the dataset. However, the small participant pool (only 51 individuals) limited the statistical power. Despite this, the decision tree approach showed promise for small-scale behavioral modeling.
+
+---
+
+## Methods
+
+Building on prior research, our study tested multiple algorithms using a **percentage split** between male and female participants. The models tested were:
+
+- **Dummy Classifier** (baseline)  
+- **Decision Tree**  
+- **Naïve Bayes**
+
+Each algorithm was evaluated for **accuracy**:
+
+| Algorithm | Accuracy | Notes |
+|------------|-----------|-------|
+| Dummy Classifier | 0.63 | Baseline; impractical since it ignores underlying patterns |
+| Naïve Bayes | 0.71 | Moderate accuracy; fast and efficient |
+| Decision Tree | 0.77 | Highest accuracy; selected as the final model |
+
+Our dataset contained various biometric and lifestyle variables:
+- **Demographic:** gender, age  
+- **Body metrics:** weight, height, waist size  
+- **Physiological:** eyesight, hearing  
+- **Blood chemistry:** systolic and diastolic pressure, fasting blood sugar, cholesterol, triglycerides, HDL, LDL, hemoglobin  
+- **Urinalysis:** urine protein, serum creatinine  
+- **Liver enzymes:** AST, ALT, GTP  
+- **Other:** insurance status, irritability, smoking status  
+
+To prepare the dataset:
+1. String values (e.g., “Male/Female”, “Yes/No”) were converted into binary form using **dummy variables**.  
+2. To avoid the **Dummy Variable Trap**, one of each binary category was removed to prevent multicollinearity.  
+3. Data preprocessing followed guidance from *LearnDataSci (2022)*.
+
+Once cleaned, **linear regression** was used to evaluate correlations between variables and smoking status. Subsequently, we ran classification algorithms, ultimately determining that **Decision Tree** models produced the most accurate and interpretable results.
+
+---
+
+## Results
+
+The **Decision Tree** model produced the following performance metrics:
+
+| Metric | Score |
+|---------|-------|
+| Precision | 0.693 |
+| Recall | 0.690 |
+| F1 Score | 0.690 |
+
+While Naïve Bayes achieved slightly higher precision (≈0.70), the Decision Tree achieved better overall balance and interpretability. Statistical tests revealed key correlations:
+
+| Variable | P-Value |
+|-----------|----------|
+| Waist | 0.829 |
+| LDL | 0.617 |
+| Urine Protein | 0.690 |
+| AST | 0.001 |
+| Others | 0.000 |
+
+These findings indicate that **AST, GTP, hemoglobin, and LDL cholesterol** were the most influential biochemical predictors of smoking status.
+
+Additional observations:
+- Only **36%** of the participants were smokers.  
+- Smokers exhibited **lower GTP and hemoglobin** levels.  
+- The **most common smoking age range** was 25–35.  
+- Most smokers possessed **dental insurance**, suggesting socioeconomic links.
+
+The **Decision Tree** effectively identified non-linear relationships and produced interpretable classifications for real-world application.
+
+---
+
+## Conclusion
+
+Our findings demonstrate that **data mining and AI models can effectively identify tobacco use** based on biochemical and demographic data. Among the tested algorithms, the **Decision Tree** achieved the highest accuracy and interpretability.
+
+The study highlights that **GTP and LDL levels** serve as significant predictors distinguishing smokers from non-smokers. These findings have direct implications for healthcare, where such models could assist nurses and doctors in identifying smoking habits without direct questioning.
+
+Ultimately, **data mining offers a powerful tool for predictive analysis** in public health. By leveraging these techniques, professionals can better understand risk factors, design targeted interventions, and improve prevention efforts in tobacco cessation.
+
+---
+
+## References
+
+1. World Health Organization. (2022, May 24). *Tobacco*. [WHO Fact Sheet](https://www.who.int/news-room/fact-sheets/detail/tobacco)  
+2. Rijhwani, K., Mohanty, V., Aswini, YB., & Hashmi, S. (2020). *Applicability of Data Mining and Predictive Analysis for Tobacco Cessation: An Exploratory Study*. Front Dent. [ResearchGate Link](https://www.researchgate.net/publication/346410102_Applicability_of_Data_Mining_and_Predictive_Analysis_for_Tobacco_Cessation_An_Exploratory_Study_Front_Dent)  
+3. Martinović, T. (2015). *Investigating Tobacco Usage Habits Using Data Mining Approach*. ENTerprise REsearch InNOVAtion Conference. [Econstor Link](https://www.econstor.eu/bitstream/10419/183660/1/40-ENT-2015-Martinovic-Pp-288-294.pdf)  
+4. Centers for Disease Control and Prevention. (2014). *Patterns of Tobacco Use Among U.S. Youth, Young Adults, and Adults*. [NIH Report](https://www.ncbi.nlm.nih.gov/books/NBK294302/)  
+5. *Dummy Variable Trap – LearnDataSci.* (2022). [LearnDataSci Glossary](https://www.learndatasci.com/glossary/dummy-variable-trap/)  
