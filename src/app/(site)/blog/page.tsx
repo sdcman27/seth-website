@@ -7,8 +7,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", { dateStyle: "long" });
 
 export const metadata: Metadata = {
   title: `Blog – ${profile.name}`,
-  description:
-    "Writing about assistive robotics, affective computing, and the research behind my projects.",
+   description: "Writing about data science, AI, and the projects I'm building.",
   alternates: {
     canonical: "/blog",
   },
@@ -23,8 +22,8 @@ export default async function BlogIndexPage() {
         <header className="mb-10 space-y-3">
           <h1 className="text-3xl font-semibold tracking-tight">Research blog</h1>
           <p className="max-w-2xl text-[var(--muted)]">
-            Field notes from the lab, deployment lessons, and the stories behind my latest
-            publications.
+            Essays and research highlights on analytics, machine learning, and the work shaping my
+            practice.
           </p>
         </header>
 
