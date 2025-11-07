@@ -6,7 +6,49 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import type { ReactNode } from "react";
 
-const postsDirectory = path.join(process.cwd(), "content", "posts");
+const postsDirectories = [
+  path.join(process.cwd(), "content", "posts"),
+  path.join(process.cwd(), "blogs"),
+];
+
+function isNotFoundError(error: unknown): error is NodeJS.ErrnoException {
+  return (
+    Boolean(error && typeof error === "object" && "code" in error) &&
+    (error as NodeJS.ErrnoException).code === "ENOENT"
+  );
+}
+
+async function readPostFile(slug: string): Promise<string | null> {
+  for (const directory of postsDirectories) {
+    const fullPath = path.join(directory, `${slug}.mdx`);
+    try {
+      const fileContents = await fs.readFile(fullPath, "utf8");
+      return fileContents;
+    } catch (error) {
+      if (isNotFoundError(error)) {
+        continue;
+      }
+      console.error(`Failed to read post ${slug} from ${fullPath}:`, error);
+      return null;
+    }
+  }
+
+  console.error(
+    `Post ${slug} was not found in any configured directory: ${postsDirectories.join(", ")}.`,
+  );
+  return null;
+}
+
+async function readDirectoryEntries(directory: string): Promise<string[]> {
+  try {
+    return await fs.readdir(directory);
+  } catch (error) {
+    if (!isNotFoundError(error)) {
+      console.error(`Failed to read posts directory ${directory}:`, error);
+    }
+    return [];
+  }
+}
 
 export type PostMetadata = {
   slug: string;
@@ -58,15 +100,16 @@ function normalizeFrontmatter(frontmatter: RawFrontmatter, slug: string) {
 }
 
 export async function getPostSlugs() {
-  try {
-    const entries = await fs.readdir(postsDirectory);
-    return entries
+  const slugs = new Set<string>();
+
+  for (const directory of postsDirectories) {
+    const entries = await readDirectoryEntries(directory);
+    entries
       .filter(entry => entry.endsWith(".mdx"))
-      .map(entry => entry.replace(/\.mdx$/, ""));
-  } catch (error) {
-    console.error("Failed to read posts directory", error);
-    return [];
+      .forEach(entry => slugs.add(entry.replace(/\.mdx$/, "")));
   }
+
+  return Array.from(slugs);
 }
 
 export async function getAllPosts(): Promise<PostMetadata[]> {
@@ -78,22 +121,23 @@ export async function getAllPosts(): Promise<PostMetadata[]> {
 }
 
 export async function getPostMetadata(slug: string): Promise<PostMetadata | null> {
-  try {
-    const fullPath = path.join(postsDirectory, `${slug}.mdx`);
-    const fileContents = await fs.readFile(fullPath, "utf8");
-    const { data } = matter(fileContents) as { data: RawFrontmatter };
-    const metadata = normalizeFrontmatter(data, slug);
-    return { slug, ...metadata };
-  } catch (error) {
-    console.error(`Failed to load frontmatter for post ${slug}:`, error);
+  const fileContents = await readPostFile(slug);
+  if (!fileContents) {
     return null;
   }
+
+  const { data } = matter(fileContents) as { data: RawFrontmatter };
+  const metadata = normalizeFrontmatter(data, slug);
+  return { slug, ...metadata };
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
+  const source = await readPostFile(slug);
+  if (!source) {
+    return null;
+  }
+
   try {
-    const fullPath = path.join(postsDirectory, `${slug}.mdx`);
-    const source = await fs.readFile(fullPath, "utf8");
     const { content, frontmatter } = await compileMDX<RawFrontmatter>({
       source,
       options: {
@@ -111,7 +155,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       content,
     };
   } catch (error) {
-    console.error(`Failed to load post ${slug}:`, error);
+    console.error(`Failed to compile post ${slug}:`, error);
     return null;
   }
 }
