@@ -10,3 +10,49 @@
     outline-offset: 2px;
   }
 }
+
+@layer components {
+  .blog-content > * + * {
+    margin-top: 1.5rem;
+  }
+
+  .blog-content h2 {
+    @apply text-2xl font-semibold text-[var(--text)];
+    margin-top: 3rem;
+  }
+
+  .blog-content h3 {
+    @apply text-xl font-semibold text-[var(--text)];
+    margin-top: 2rem;
+  }
+
+  .blog-content p,
+  .blog-content li {
+    @apply leading-7 text-[var(--muted)];
+  }
+
+  .blog-content a {
+    @apply text-[var(--text)] underline decoration-[var(--primary)] decoration-2 underline-offset-4;
+  }
+
+  .blog-content ul,
+  .blog-content ol {
+    @apply ml-6 list-disc;
+  }
+
+  .blog-content ol {
+    list-style-type: decimal;
+  }
+
+  .blog-content blockquote {
+    @apply border-l-4 border-[var(--primary)] pl-4 italic text-[var(--muted)];
+  }
+
+  .blog-content pre {
+    @apply overflow-x-auto rounded-xl border border-white/10 bg-black/40 p-4 text-sm text-[var(--text)];
+  }
+
+  .blog-content code {
+    @apply rounded bg-white/10 px-1 py-0.5 text-sm text-[var(--text)];
+  }
+}
