@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import { existsSync } from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { compileMDX } from "next-mdx-remote/rsc";
@@ -6,9 +7,25 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import type { ReactNode } from "react";
 
+function findProjectRoot(startDir: string) {
+  let currentDir = startDir;
+
+  while (!existsSync(path.join(currentDir, "package.json"))) {
+    const parentDir = path.dirname(currentDir);
+    if (parentDir === currentDir) {
+      break;
+    }
+    currentDir = parentDir;
+  }
+
+  return currentDir;
+}
+
+const projectRoot = findProjectRoot(process.cwd());
+
 const postsDirectories = [
-  path.join(process.cwd(), "content", "posts"),
-  path.join(process.cwd(), "blogs"),
+  path.join(projectRoot, "content", "posts"),
+  path.join(projectRoot, "blogs"),
 ];
 
 function isNotFoundError(error: unknown): error is NodeJS.ErrnoException {
