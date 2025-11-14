@@ -6,16 +6,14 @@ type RevealProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
-  as?: keyof JSX.IntrinsicElements;
 };
 
 export default function Reveal({
   children,
   className = "",
   delay = 0,
-  as: Component = "div",
 }: RevealProps) {
-  const ref = useRef<HTMLElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -44,15 +42,13 @@ export default function Reveal({
   }, []);
 
   return (
-    <Component
-      ref={node => {
-        ref.current = node as HTMLElement | null;
-      }}
+    <div
+      ref={ref}
       data-visible={isVisible ? "true" : undefined}
       className={`reveal ${className}`.trim()}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}
-    </Component>
+    </div>
   );
 }
